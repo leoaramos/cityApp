@@ -2,10 +2,10 @@ package com.leonardoramos.cityapp.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -27,13 +27,8 @@ public class Neighbor {
 	@JsonIgnore
 	private Long id;
 
-	@ManyToOne(fetch = FetchType.LAZY, targetEntity = City.class)
-	@JoinColumn(name = "cityOne_id")
-	@JsonIgnore
-	private City cityOne;
-
-	@ManyToOne(fetch = FetchType.LAZY, targetEntity = City.class)
-	@JoinColumn(name = "cityTwo_id")
+	@ManyToOne
+	@JoinTable(name = "cities_neighboors", joinColumns = @JoinColumn(name = "neighbor_id"), inverseJoinColumns = @JoinColumn(name = "city_id"))
 	@JsonIgnore
 	private City cityTwo;
 
@@ -43,5 +38,5 @@ public class Neighbor {
 
 	@NonNull
 	private Float distance;
-	
+
 }

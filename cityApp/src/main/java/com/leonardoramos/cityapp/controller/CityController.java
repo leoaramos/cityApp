@@ -43,7 +43,7 @@ public class CityController {
 	@DeleteMapping(path = { "/{id}" })
 	public ResponseEntity<?> delete(@PathVariable("id") long id) {
 		return repository.findById(id).map(record -> {
-			if (record.getVizinhos().size() <= 1) {
+			if (record.getNeighboors().size() <= 1) {
 				repository.deleteById(id);
 				return ResponseEntity.ok().build();
 			} else {
