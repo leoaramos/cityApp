@@ -25,8 +25,12 @@ public class CityController {
 	}
 
 	@GetMapping
-	public List<City> findAll() {
-		return repository.findAll();
+	public ResponseEntity<List<City>> findAll() {
+		try {
+			return ResponseEntity.ok(repository.findAll());
+		} catch (Exception e) {
+			return ResponseEntity.badRequest().build();
+		}
 	}
 
 	@GetMapping(path = { "/{id}" })
@@ -36,10 +40,15 @@ public class CityController {
 	}
 
 	@PostMapping
-	public City create(@RequestBody City city) {
-		return repository.save(city);
+	public ResponseEntity<City> create(@RequestBody City city) {
+		try {
+			repository.save(city);
+			return ResponseEntity.ok(city);
+		} catch (Exception e) {
+			return ResponseEntity.badRequest().build();
+		}
 	}
-
+	
 	@DeleteMapping(path = { "/{id}" })
 	public ResponseEntity<?> delete(@PathVariable("id") long id) {
 		return repository.findById(id).map(record -> {

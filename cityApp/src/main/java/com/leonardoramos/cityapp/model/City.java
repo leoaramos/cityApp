@@ -1,8 +1,8 @@
 package com.leonardoramos.cityapp.model;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -44,15 +44,8 @@ public class City {
 	@Embedded
 	private Coordinate coordinate;
 
-//	@OneToMany(fetch = FetchType.LAZY, targetEntity = Neighbor.class, mappedBy = "cityTwo")
-//	private Set<Neighbor> neighboors = new HashSet<Neighbor>();
-
-//	@OneToMany(fetch = FetchType.LAZY, targetEntity = Vizinho.class)
-//	@JsonIgnore
-//	private List<Vizinho> vizinhos = new ArrayList<Vizinho>();
-
 	@OneToMany
 	@JoinTable(name = "cities_neighboors", joinColumns = @JoinColumn(name = "city_id"), inverseJoinColumns = @JoinColumn(name = "neighbor_id"))
-	private List<Neighbor> neighboors = new ArrayList<Neighbor>();
+	private Set<Neighbor> neighboors = new TreeSet<Neighbor>();
 
 }
