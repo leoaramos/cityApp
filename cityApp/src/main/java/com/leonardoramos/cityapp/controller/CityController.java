@@ -13,16 +13,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.leonardoramos.cityapp.model.City;
+import com.leonardoramos.cityapp.model.Neighbor;
 import com.leonardoramos.cityapp.repository.CityRepository;
+import com.leonardoramos.cityapp.repository.NeighborRepository;
 
 @RestController
 @RequestMapping({ "/city" })
 public class CityController {
 
 	private CityRepository repository;
+	private NeighborRepository neighborRepository;
 
-	public CityController(CityRepository cityRepository) {
+	public CityController(CityRepository cityRepository, NeighborRepository neighborRepository) {
 		this.repository = cityRepository;
+		this.neighborRepository = neighborRepository;
 	}
 
 	@GetMapping
@@ -77,6 +81,26 @@ public class CityController {
 		} catch (Exception e) {
 			return ResponseEntity.badRequest().build();
 		}
+	}
+
+	@GetMapping(path = { "{cityId}/neighbor/{neighborId}"})
+	public ResponseEntity<Neighbor> addNeighbor(@PathVariable("cityId") long cityId,
+			@PathVariable("neighborId") long neighborId) {
+		City city = repository.findById(cityId).get();
+		Neighbor neighbor = new Neighbor();
+		if (repository.findById(neighborId).get() != null) {
+			neighbor.setCityTwo(city);
+			neighbor.setCityTwoId(city.getId());
+			neighbor.setDistance(44f);
+			city.getNeighboors().add(neighbor);
+		}
+		try {
+			repository.save(city);
+			return ResponseEntity.ok(neighbor);
+		} catch (Exception e) {
+			return ResponseEntity.badRequest().build();
+		}
+
 	}
 
 }

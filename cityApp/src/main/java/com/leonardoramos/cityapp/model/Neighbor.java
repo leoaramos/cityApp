@@ -32,7 +32,8 @@ public class Neighbor {
 	@JsonIgnore
 	private City cityTwo;
 
-	@Column(name = "cityTwo_id", nullable = false, insertable = false, updatable = false)
+//	@Column(name = "cityTwo_id", nullable = false, insertable = false, updatable = false)
+	@Column(name = "cityTwo_id")
 	@JsonProperty(value = "id")
 	private Long cityTwoId;
 
