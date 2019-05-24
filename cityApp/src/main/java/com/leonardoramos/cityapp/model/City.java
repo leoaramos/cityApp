@@ -9,14 +9,15 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,7 +27,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class City {
 
 	@Id
@@ -45,7 +46,7 @@ public class City {
 	private Coordinate coordinate;
 
 	@OneToMany
-	@JoinTable(name = "cities_neighboors", joinColumns = @JoinColumn(name = "city_id"), inverseJoinColumns = @JoinColumn(name = "neighbor_id"))
+	@JoinTable(name = "cities_neighboors", joinColumns = @JoinColumn(name = "city_from_id"))
 	private Set<Neighbor> neighboors = new TreeSet<Neighbor>();
 
 }

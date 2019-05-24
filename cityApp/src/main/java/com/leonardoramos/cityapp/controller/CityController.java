@@ -83,20 +83,23 @@ public class CityController {
 		}
 	}
 
-	@GetMapping(path = { "{cityId}/neighbor/{neighborId}"})
-	public ResponseEntity<Neighbor> addNeighbor(@PathVariable("cityId") long cityId,
+	@GetMapping(path = { "{cityId}/neighbor/{neighborId}" })
+	public ResponseEntity<City> addNeighbor(@PathVariable("cityId") long cityId,
 			@PathVariable("neighborId") long neighborId) {
-		City city = repository.findById(cityId).get();
-		Neighbor neighbor = new Neighbor();
-		if (repository.findById(neighborId).get() != null) {
-			neighbor.setCityTwo(city);
-			neighbor.setCityTwoId(city.getId());
-			neighbor.setDistance(44f);
-			city.getNeighboors().add(neighbor);
-		}
 		try {
+			City city = repository.findById(cityId).get();
+			City neighborCity = repository.findById(neighborId).get();
+			Neighbor neighbor = new Neighbor();
+			if (repository.findById(neighborId).get() != null) {
+				neighbor.setCityFrom(city);
+				neighbor.setCityToId(neighborCity.getId());
+				neighbor.setDistance(44f);
+				neighbor.setCityTo(neighborCity);
+				neighborRepository.save(neighbor);
+				city.getNeighboors().add(neighbor);
+			}
 			repository.save(city);
-			return ResponseEntity.ok(neighbor);
+			return ResponseEntity.ok(city);
 		} catch (Exception e) {
 			return ResponseEntity.badRequest().build();
 		}
