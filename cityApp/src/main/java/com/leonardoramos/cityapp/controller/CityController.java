@@ -87,20 +87,28 @@ public class CityController {
 	public ResponseEntity<City> addNeighbor(@PathVariable("cityId") long cityId,
 			@PathVariable("neighborId") long neighborId) {
 		try {
-			City city = repository.findById(cityId).get();
-			City neighborCity = repository.findById(neighborId).get();
-			Neighbor neighbor = new Neighbor();
+			City cityFrom = repository.findById(cityId).get();
+			City cityTo = repository.findById(neighborId).get();
+			Neighbor neighborOne = new Neighbor();
+			Neighbor neighborTwo = new Neighbor();
 			if (repository.findById(neighborId).get() != null) {
-				neighbor.setCityFrom(city);
-				neighbor.setDistance(44f);
-				neighbor.setCityTo(neighborCity);
-				neighbor.setCityToId(neighborCity.getId());
-				neighborRepository.save(neighbor);
-				city.getNeighboors().add(neighbor);
+				neighborOne.setCityFrom(cityFrom);
+				neighborOne.setDistance(44f);
+				neighborOne.setCityTo(cityTo);
+				neighborOne.setCityToId(cityTo.getId());
+				neighborRepository.save(neighborOne);
+				cityFrom.getNeighboors().add(neighborOne);
+				//inclui também a relação contrária
+				neighborTwo.setCityFrom(cityTo);
+				neighborTwo.setDistance(44f);
+				neighborTwo.setCityTo(cityFrom);
+				neighborTwo.setCityToId(cityFrom.getId());
+				neighborRepository.save(neighborTwo);
+				cityTo.getNeighboors().add(neighborTwo);
 			}
-			repository.save(city);
-			repository.save(neighborCity);
-			return ResponseEntity.ok(city);
+			repository.save(cityFrom);
+			repository.save(cityTo);
+			return ResponseEntity.ok(cityFrom);
 		} catch (Exception e) {
 			return ResponseEntity.badRequest().build();
 		}
