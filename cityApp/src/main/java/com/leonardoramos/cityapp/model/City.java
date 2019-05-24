@@ -27,7 +27,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Entity
-//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class City {
 
 	@Id
@@ -44,10 +43,6 @@ public class City {
 
 	@Embedded
 	private Coordinate coordinate;
-
-//	@OneToMany
-//	@JoinTable(name = "cities_neighboors", joinColumns = @JoinColumn(name = "city_from_id"))
-//	private Set<Neighbor> neighboors = new TreeSet<Neighbor>();
 
 	@ElementCollection(fetch = FetchType.LAZY)
 	@CollectionTable(name = "cidades_vizinhos")
