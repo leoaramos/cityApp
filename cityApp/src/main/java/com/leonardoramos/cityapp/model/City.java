@@ -1,23 +1,23 @@
 package com.leonardoramos.cityapp.model;
 
 import java.time.LocalDate;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -45,8 +45,13 @@ public class City {
 	@Embedded
 	private Coordinate coordinate;
 
-	@OneToMany
-	@JoinTable(name = "cities_neighboors", joinColumns = @JoinColumn(name = "city_from_id"))
-	private Set<Neighbor> neighboors = new TreeSet<Neighbor>();
+//	@OneToMany
+//	@JoinTable(name = "cities_neighboors", joinColumns = @JoinColumn(name = "city_from_id"))
+//	private Set<Neighbor> neighboors = new TreeSet<Neighbor>();
 
+	@ElementCollection(fetch = FetchType.LAZY)
+	@CollectionTable(name = "cidades_vizinhos")
+	@JoinColumn(name = "cidade_origem")
+	@JsonManagedReference
+	private List<Neighbor> vizinhos = new ArrayList<Neighbor>();
 }
