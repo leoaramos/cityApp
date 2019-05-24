@@ -3,8 +3,6 @@ package com.leonardoramos.cityapp.model;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
@@ -16,6 +14,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
@@ -50,5 +50,7 @@ public class City {
 	@CollectionTable(name = "cities_neighboors")
 	@JoinColumn(name = "city_from")
 	@JsonManagedReference
+	@Cascade(CascadeType.ALL)
 	private List<Neighbor> neighboors = new ArrayList<Neighbor>();
+
 }

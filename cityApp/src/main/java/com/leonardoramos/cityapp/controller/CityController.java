@@ -54,6 +54,14 @@ public class CityController {
 		}
 	}
 
+	/**
+	 * Update a city identified by id. The list of neighboors are not affected; use
+	 * the {@link #addNeighbor(long, long) addNeighbor} method for this purpose.
+	 * 
+	 * @param long id
+	 * @param City city
+	 * @return ResponseEntity<City>
+	 */
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<City> update(@PathVariable("id") long id, @RequestBody City city) {
 		return repository.findById(id).map(record -> {
@@ -61,7 +69,6 @@ public class CityController {
 			record.setPopulation(city.getPopulation());
 			record.setFoundationDate(city.getFoundationDate());
 			record.setCoordinate(city.getCoordinate());
-			record.setNeighboors(city.getNeighboors());
 			City updated = repository.save(record);
 			return ResponseEntity.ok().body(updated);
 		}).orElse(ResponseEntity.badRequest().build());
@@ -83,24 +90,49 @@ public class CityController {
 		}
 	}
 
+	/**
+	 * Calculates the distance between two cities through their coordinates, using
+	 * Haversine algorithm
+	 * 
+	 * @param City from
+	 * @param City to
+	 * @return Double distante
+	 */
+	public Double getDistance(City from, City to) {
+		double deltaLat = Math.toRadians(from.getCoordinate().getLatitude() - to.getCoordinate().getLatitude());
+		double deltaLon = Math.toRadians(from.getCoordinate().getLongitude() - from.getCoordinate().getLongitude());
+		double distance = Math.sin(deltaLat / 2) * Math.sin(deltaLat / 2)
+				+ Math.cos(Math.toRadians(to.getCoordinate().getLatitude()))
+						* Math.cos(Math.toRadians(from.getCoordinate().getLatitude())) * Math.sin(deltaLon / 2)
+						* Math.sin(deltaLon / 2);
+		distance = 2 * Math.atan2(Math.sqrt(distance), Math.sqrt(1 - distance));
+		return 6371.0 * distance;
+	}
+
 	@GetMapping(path = { "{cityId}/neighbor/{neighborId}" })
 	public ResponseEntity<City> addNeighbor(@PathVariable("cityId") long cityId,
 			@PathVariable("neighborId") long neighborId) {
 		try {
+			// somente inclui se já não houver um vizinho com estes dados
 			City cityFrom = repository.findById(cityId).get();
 			City cityTo = repository.findById(neighborId).get();
+			for (Neighbor neighbor : cityFrom.getNeighboors()) {
+				if (neighbor.getCityFrom().equals(cityTo.getId())) {
+					return ResponseEntity.badRequest().build();
+				}
+			}
 			Neighbor neighborOne = new Neighbor();
 			Neighbor neighborTwo = new Neighbor();
 			if (repository.findById(neighborId).get() != null) {
 				neighborOne.setCityFrom(cityFrom);
-				neighborOne.setDistance(44f);
+				neighborOne.setDistance(getDistance(cityFrom, cityTo));
 				neighborOne.setCityTo(cityTo);
 				neighborOne.setCityToId(cityTo.getId());
 				neighborRepository.save(neighborOne);
 				cityFrom.getNeighboors().add(neighborOne);
-				//inclui também a relação contrária
+				// inclui também a relação contrária
 				neighborTwo.setCityFrom(cityTo);
-				neighborTwo.setDistance(44f);
+				neighborTwo.setDistance(getDistance(cityTo, cityFrom));
 				neighborTwo.setCityTo(cityFrom);
 				neighborTwo.setCityToId(cityFrom.getId());
 				neighborRepository.save(neighborTwo);
@@ -113,6 +145,50 @@ public class CityController {
 			return ResponseEntity.badRequest().build();
 		}
 
+	}
+	
+	@DeleteMapping(path = { "{cityId}/neighbor/{neighborId}" })
+	public ResponseEntity<City> removeNeighbor(@PathVariable("cityId") long cityId,
+			@PathVariable("neighborId") long neighborId) {
+//		try {
+			// somente inclui se já não houver um vizinho com estes dados
+			City cityFrom = repository.findById(cityId).get();
+			City cityTo = repository.findById(neighborId).get();
+			//busca a cidade vizinha
+			cityFrom.getNeighboors().clear();
+			cityTo.getNeighboors().clear();
+			repository.save(cityFrom);
+			repository.save(cityTo);
+			return ResponseEntity.ok(cityFrom);
+//			for (Neighbor neighbor : cityFrom.getNeighboors()) {
+//				if (neighbor.getCityFrom().equals(cityTo.getId())) {
+//					return ResponseEntity.badRequest().build();
+//				}
+//			}
+//			Neighbor neighborOne = new Neighbor();
+//			Neighbor neighborTwo = new Neighbor();
+//			if (repository.findById(neighborId).get() != null) {
+//				neighborOne.setCityFrom(cityFrom);
+//				neighborOne.setDistance(getDistance(cityFrom, cityTo));
+//				neighborOne.setCityTo(cityTo);
+//				neighborOne.setCityToId(cityTo.getId());
+//				neighborRepository.save(neighborOne);
+//				cityFrom.getNeighboors().add(neighborOne);
+//				// inclui também a relação contrária
+//				neighborTwo.setCityFrom(cityTo);
+//				neighborTwo.setDistance(getDistance(cityTo, cityFrom));
+//				neighborTwo.setCityTo(cityFrom);
+//				neighborTwo.setCityToId(cityFrom.getId());
+//				neighborRepository.save(neighborTwo);
+//				cityTo.getNeighboors().add(neighborTwo);
+//			}
+//			repository.save(cityFrom);
+//			repository.save(cityTo);
+//			return ResponseEntity.ok(cityFrom);
+//		} catch (Exception e) {
+//			return ResponseEntity.badRequest().build();
+//		}
+		
 	}
 
 }
