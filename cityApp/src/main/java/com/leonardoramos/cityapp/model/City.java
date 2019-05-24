@@ -3,6 +3,8 @@ package com.leonardoramos.cityapp.model;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
@@ -45,8 +47,8 @@ public class City {
 	private Coordinate coordinate;
 
 	@ElementCollection(fetch = FetchType.LAZY)
-	@CollectionTable(name = "cidades_vizinhos")
-	@JoinColumn(name = "cidade_origem")
+	@CollectionTable(name = "cities_neighboors")
+	@JoinColumn(name = "city_from")
 	@JsonManagedReference
-	private List<Neighbor> vizinhos = new ArrayList<Neighbor>();
+	private List<Neighbor> neighboors = new ArrayList<Neighbor>();
 }

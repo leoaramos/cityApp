@@ -61,7 +61,7 @@ public class CityController {
 			record.setPopulation(city.getPopulation());
 			record.setFoundationDate(city.getFoundationDate());
 			record.setCoordinate(city.getCoordinate());
-			record.setVizinhos(city.getVizinhos());
+			record.setNeighboors(city.getNeighboors());
 			City updated = repository.save(record);
 			return ResponseEntity.ok().body(updated);
 		}).orElse(ResponseEntity.badRequest().build());
@@ -71,7 +71,7 @@ public class CityController {
 	public ResponseEntity<?> delete(@PathVariable("id") long id) {
 		try {
 			return repository.findById(id).map(record -> {
-				if (record.getVizinhos().size() <= 1) {
+				if (record.getNeighboors().size() <= 1) {
 					repository.deleteById(id);
 					return ResponseEntity.ok().build();
 				} else {
@@ -91,14 +91,15 @@ public class CityController {
 			City neighborCity = repository.findById(neighborId).get();
 			Neighbor neighbor = new Neighbor();
 			if (repository.findById(neighborId).get() != null) {
-				neighbor.setCidadeOrigem(city);
-				neighbor.setDistancia(44f);
-				neighbor.setCidadeDestino(neighborCity);
-				neighbor.setCidadeDestinoId(neighborCity.getId());
+				neighbor.setCityFrom(city);
+				neighbor.setDistance(44f);
+				neighbor.setCityTo(neighborCity);
+				neighbor.setCityToId(neighborCity.getId());
 				neighborRepository.save(neighbor);
-				city.getVizinhos().add(neighbor);
+				city.getNeighboors().add(neighbor);
 			}
 			repository.save(city);
+			repository.save(neighborCity);
 			return ResponseEntity.ok(city);
 		} catch (Exception e) {
 			return ResponseEntity.badRequest().build();
