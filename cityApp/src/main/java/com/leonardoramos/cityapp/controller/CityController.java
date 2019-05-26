@@ -117,7 +117,7 @@ public class CityController {
 			City cityFrom = repository.findById(cityId).get();
 			City cityTo = repository.findById(neighborId).get();
 			for (Neighbor neighbor : cityFrom.getNeighboors()) {
-				if (neighbor.getCityFrom().equals(cityTo.getId())) {
+				if (neighbor.getCityTo().equals(cityTo)) {
 					return ResponseEntity.badRequest().build();
 				}
 			}
@@ -147,13 +147,21 @@ public class CityController {
 
 	}
 
+	/**
+	 * Remove a Neighbor entity from database and the relationship between two
+	 * cities.
+	 * 
+	 * @param long cityId
+	 * @param long neighborCityId
+	 * @return ResponseEntity<City>
+	 */
 	@DeleteMapping(path = { "{cityId}/neighbor/{neighborId}" })
 	public ResponseEntity<City> removeNeighbor(@PathVariable("cityId") long cityId,
 			@PathVariable("neighborId") long neighborCityId) {
-//		try {
+		try {
 			City cityFrom = repository.findById(cityId).get();
 			City cityTo = repository.findById(neighborCityId).get();
-			for (Neighbor neighbor: cityFrom.getNeighboors()) {
+			for (Neighbor neighbor : cityFrom.getNeighboors()) {
 				if (neighbor.getCityToId().longValue() == neighborCityId) {
 					cityFrom.getNeighboors().remove(neighbor);
 					repository.save(cityFrom);
@@ -161,7 +169,7 @@ public class CityController {
 					break;
 				}
 			}
-			for (Neighbor neighbor: cityTo.getNeighboors()) {
+			for (Neighbor neighbor : cityTo.getNeighboors()) {
 				if (neighbor.getCityToId().longValue() == cityId) {
 					cityTo.getNeighboors().remove(neighbor);
 					repository.save(cityTo);
@@ -170,35 +178,9 @@ public class CityController {
 				}
 			}
 			return ResponseEntity.ok(cityFrom);
-//			for (Neighbor neighbor : cityFrom.getNeighboors()) {
-//				if (neighbor.getCityFrom().equals(cityTo.getId())) {
-//					return ResponseEntity.badRequest().build();
-//				}
-//			}
-//			Neighbor neighborOne = new Neighbor();
-//			Neighbor neighborTwo = new Neighbor();
-//			if (repository.findById(neighborId).get() != null) {
-//				neighborOne.setCityFrom(cityFrom);
-//				neighborOne.setDistance(getDistance(cityFrom, cityTo));
-//				neighborOne.setCityTo(cityTo);
-//				neighborOne.setCityToId(cityTo.getId());
-//				neighborRepository.save(neighborOne);
-//				cityFrom.getNeighboors().add(neighborOne);
-//				// inclui também a relação contrária
-//				neighborTwo.setCityFrom(cityTo);
-//				neighborTwo.setDistance(getDistance(cityTo, cityFrom));
-//				neighborTwo.setCityTo(cityFrom);
-//				neighborTwo.setCityToId(cityFrom.getId());
-//				neighborRepository.save(neighborTwo);
-//				cityTo.getNeighboors().add(neighborTwo);
-//			}
-//			repository.save(cityFrom);
-//			repository.save(cityTo);
-//			return ResponseEntity.ok(cityFrom);
-//		} catch (Exception e) {
-//			return ResponseEntity.badRequest().build();
-//		}
-		
+		} catch (Exception e) {
+			return ResponseEntity.badRequest().build();
+		}
 	}
 
 }
