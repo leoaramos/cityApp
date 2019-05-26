@@ -14,8 +14,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
@@ -50,7 +48,6 @@ public class City {
 	@CollectionTable(name = "cities_neighboors")
 	@JoinColumn(name = "city_from")
 	@JsonManagedReference
-	@Cascade(CascadeType.ALL)
 	private List<Neighbor> neighboors = new ArrayList<Neighbor>();
 
 }

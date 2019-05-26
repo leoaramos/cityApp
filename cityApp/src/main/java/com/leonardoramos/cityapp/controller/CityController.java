@@ -146,19 +146,29 @@ public class CityController {
 		}
 
 	}
-	
+
 	@DeleteMapping(path = { "{cityId}/neighbor/{neighborId}" })
 	public ResponseEntity<City> removeNeighbor(@PathVariable("cityId") long cityId,
-			@PathVariable("neighborId") long neighborId) {
+			@PathVariable("neighborId") long neighborCityId) {
 //		try {
-			// somente inclui se já não houver um vizinho com estes dados
 			City cityFrom = repository.findById(cityId).get();
-			City cityTo = repository.findById(neighborId).get();
-			//busca a cidade vizinha
-			cityFrom.getNeighboors().clear();
-			cityTo.getNeighboors().clear();
-			repository.save(cityFrom);
-			repository.save(cityTo);
+			City cityTo = repository.findById(neighborCityId).get();
+			for (Neighbor neighbor: cityFrom.getNeighboors()) {
+				if (neighbor.getCityToId().longValue() == neighborCityId) {
+					cityFrom.getNeighboors().remove(neighbor);
+					repository.save(cityFrom);
+					neighborRepository.delete(neighbor);
+					break;
+				}
+			}
+			for (Neighbor neighbor: cityTo.getNeighboors()) {
+				if (neighbor.getCityToId().longValue() == cityId) {
+					cityTo.getNeighboors().remove(neighbor);
+					repository.save(cityTo);
+					neighborRepository.delete(neighbor);
+					break;
+				}
+			}
 			return ResponseEntity.ok(cityFrom);
 //			for (Neighbor neighbor : cityFrom.getNeighboors()) {
 //				if (neighbor.getCityFrom().equals(cityTo.getId())) {
