@@ -2,6 +2,7 @@ package com.leonardoramos.cityapp.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,8 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.leonardoramos.cityapp.model.City;
 import com.leonardoramos.cityapp.model.Neighbor;
-import com.leonardoramos.cityapp.model.graph.Edge;
-import com.leonardoramos.cityapp.model.graph.Graph;
 import com.leonardoramos.cityapp.repository.CityRepository;
 import com.leonardoramos.cityapp.repository.NeighborRepository;
 
@@ -23,6 +22,7 @@ import com.leonardoramos.cityapp.repository.NeighborRepository;
 @RequestMapping({ "/city" })
 public class CityController {
 
+	@Autowired
 	private CityRepository repository;
 	private NeighborRepository neighborRepository;
 
@@ -185,26 +185,21 @@ public class CityController {
 		}
 	}
 
-	@GetMapping(path = { "{fromCityId}/shortestpath/{toCityId}" })
-	public ResponseEntity<?> getShortestPath(@PathVariable("fromCityId") long cityFromId,
-			@PathVariable("toCityId") long cityToId) {
-		
-		try {
-			List<Neighbor> allNeighboors = neighborRepository.findAll();
-			Edge[] edges = new Edge[allNeighboors.size()];
-			int i = 0;
-			for (Neighbor neighbor : allNeighboors) {
-				edges[i] = new Edge(neighbor.getCityFrom().getId().intValue(), neighbor.getCityTo().getId().intValue(),
-						neighbor.getDistance());
-				i++;
-			}
-			Graph g = new Graph(edges);
-			g.calculateShortestDistances();
-			g.printResult();
-		} catch (Exception e) {
-			return ResponseEntity.badRequest().build();
-		}
-		return ResponseEntity.badRequest().build();
-	}
+	/*
+	 * @GetMapping(path = { "{fromCityId}/shortestpath/{toCityId}" }) public
+	 * ResponseEntity<?> getShortestPath(@PathVariable("fromCityId") long
+	 * cityFromId,
+	 * 
+	 * @PathVariable("toCityId") long cityToId) {
+	 * 
+	 * try { List<Neighbor> allNeighboors = neighborRepository.findAll(); Edge[]
+	 * edges = new Edge[allNeighboors.size()]; int i = 0; for (Neighbor neighbor :
+	 * allNeighboors) { edges[i] = new
+	 * Edge(neighbor.getCityFrom().getId().intValue(),
+	 * neighbor.getCityTo().getId().intValue(), neighbor.getDistance()); i++; }
+	 * Graph g = new Graph(edges); g.calculateShortestDistances(); g.printResult();
+	 * } catch (Exception e) { return ResponseEntity.badRequest().build(); } return
+	 * ResponseEntity.badRequest().build(); }
+	 */
 
 }
