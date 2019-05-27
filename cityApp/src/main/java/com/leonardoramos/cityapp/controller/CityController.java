@@ -188,7 +188,7 @@ public class CityController {
 	@GetMapping(path = { "{fromCityId}/shortestpath/{toCityId}" })
 	public ResponseEntity<?> getShortestPath(@PathVariable("fromCityId") long cityFromId,
 			@PathVariable("toCityId") long cityToId) {
-
+		
 		try {
 			List<Neighbor> allNeighboors = neighborRepository.findAll();
 			Edge[] edges = new Edge[allNeighboors.size()];

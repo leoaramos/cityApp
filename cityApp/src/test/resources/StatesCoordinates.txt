@@ -1,0 +1,292 @@
+{ 
+    "name": "AC", 
+    "population": 2523794, 
+    "foundationDate": "1897-12-12", 
+    "coordinate": { 
+        "lat": -8.77, 
+        "long": -70.5 
+    }, 
+    "neighboors": [] 
+}
+
+{ 
+    "name": "AL", 
+    "population": 2523794, 
+    "foundationDate": "1897-12-12", 
+    "coordinate": { 
+        "lat": -9.71, 
+        "long": -35.73 
+    }, 
+    "neighboors": [] 
+}
+
+{ 
+    "name": "AL", 
+    "population": 2523794, 
+    "foundationDate": "1897-12-12", 
+    "coordinate": { 
+        "lat": -9.71, 
+        "long": -35.73 
+    }, 
+    "neighboors": [] 
+}
+
+{ 
+    "name": "AM", 
+    "population": 2523794, 
+    "foundationDate": "1897-12-12", 
+    "coordinate": { 
+        "lat": -3.07, 
+        "long": -61.66 
+    }, 
+    "neighboors": [] 
+}
+
+{ 
+    "name": "AP", 
+    "population": 2523794, 
+    "foundationDate": "1897-12-12", 
+    "coordinate": { 
+        "lat": 1.41, 
+        "long": -51.77
+    }, 
+    "neighboors": [] 
+}
+
+{ 
+    "name": "AP", 
+    "population": 2523794, 
+    "foundationDate": "1897-12-12", 
+    "coordinate": { 
+        "lat": -12.96, 
+        "long": -38.51
+    }, 
+    "neighboors": [] 
+}
+
+{ 
+    "name": "CE", 
+    "population": 2523794, 
+    "foundationDate": "1897-12-12", 
+    "coordinate": { 
+        "lat": -3.71, 
+        "long": -38.54
+    }, 
+    "neighboors": [] 
+}
+
+
+
+{ 
+    "name": "DF", 
+    "population": 2523794, 
+    "foundationDate": "1897-12-12", 
+    "coordinate": { 
+        "lat": -15.83, 
+        "long": -47.86
+    }, 
+    "neighboors": [] 
+}
+
+{ 
+    "name": "ES", 
+    "population": 2523794, 
+    "foundationDate": "1897-12-12", 
+    "coordinate": { 
+        "lat": -19.19, 
+        "long": -40.34
+    }, 
+    "neighboors": [] 
+}
+
+{ 
+    "name": "GO", 
+    "population": 2523794, 
+    "foundationDate": "1897-12-12", 
+    "coordinate": { 
+        "lat": -16.64, 
+        "long": -49.31
+    }, 
+    "neighboors": [] 
+}
+{ 
+    "name": "MA", 
+    "population": 2523794, 
+    "foundationDate": "1897-12-12", 
+    "coordinate": { 
+        "lat": -2.55, 
+        "long": -44.30
+    }, 
+    "neighboors": [] 
+}
+{ 
+    "name": "MT", 
+    "population": 2523794, 
+    "foundationDate": "1897-12-12", 
+    "coordinate": { 
+        "lat": -12.64, 
+        "long": -55.42
+    }, 
+    "neighboors": [] 
+}
+{ 
+    "name": "MS", 
+    "population": 2523794, 
+    "foundationDate": "1897-12-12", 
+    "coordinate": { 
+        "lat": -20.51, 
+        "long": -54.54
+    }, 
+    "neighboors": [] 
+}
+{ 
+    "name": "MG", 
+    "population": 2523794, 
+    "foundationDate": "1897-12-12", 
+    "coordinate": { 
+        "lat": -18.10, 
+        "long": -44.38
+    }, 
+    "neighboors": [] 
+}
+{ 
+    "name": "PA", 
+    "population": 2523794, 
+    "foundationDate": "1897-12-12", 
+    "coordinate": { 
+        "lat": -5.53, 
+        "long": -52.29
+    }, 
+    "neighboors": [] 
+}
+{ 
+    "name": "PB", 
+    "population": 2523794, 
+    "foundationDate": "1897-12-12", 
+    "coordinate": { 
+        "lat": -7.06, 
+        "long": -35.55
+    }, 
+    "neighboors": [] 
+}
+{ 
+    "name": "PR", 
+    "population": 2523794, 
+    "foundationDate": "1897-12-12", 
+    "coordinate": { 
+        "lat": -24.89, 
+        "long": -51.55
+    }, 
+    "neighboors": [] 
+}
+{ 
+    "name": "PE", 
+    "population": 2523794, 
+    "foundationDate": "1897-12-12", 
+    "coordinate": { 
+        "lat": -8.28, 
+        "long": -35.07
+    }, 
+    "neighboors": [] 
+}
+{ 
+    "name": "PI", 
+    "population": 2523794, 
+    "foundationDate": "1897-12-12", 
+    "coordinate": { 
+        "lat": -8.28, 
+        "long": -43.68
+    }, 
+    "neighboors": [] 
+}
+{ 
+    "name": "RJ", 
+    "population": 2523794, 
+    "foundationDate": "1897-12-12", 
+    "coordinate": { 
+        "lat": -22.84, 
+        "long": -43.15
+    }, 
+    "neighboors": [] 
+}
+{ 
+    "name": "RN", 
+    "population": 2523794, 
+    "foundationDate": "1897-12-12", 
+    "coordinate": { 
+        "lat": -5.22, 
+        "long": -36.52
+    }, 
+    "neighboors": [] 
+}
+{ 
+    "name": "RO", 
+    "population": 2523794, 
+    "foundationDate": "1897-12-12", 
+    "coordinate": { 
+        "lat": -11.22, 
+        "long": -62.80
+    }, 
+    "neighboors": [] 
+}
+{ 
+    "name": "RS", 
+    "population": 2523794, 
+    "foundationDate": "1897-12-12", 
+    "coordinate": { 
+        "lat": -30.01, 
+        "long": -51.22
+    }, 
+    "neighboors": [] 
+}
+{ 
+    "name": "RR", 
+    "population": 2523794, 
+    "foundationDate": "1897-12-12", 
+    "coordinate": { 
+        "lat": 1.89, 
+        "long": -61.22
+    }, 
+    "neighboors": [] 
+}
+{ 
+    "name": "SC", 
+    "population": 2523794, 
+    "foundationDate": "1897-12-12", 
+    "coordinate": { 
+        "lat": -27.33, 
+        "long": -49.44
+    }, 
+    "neighboors": [] 
+}
+{ 
+    "name": "SE", 
+    "population": 2523794, 
+    "foundationDate": "1897-12-12", 
+    "coordinate": { 
+        "lat": -10.90, 
+        "long": -37.07
+    }, 
+    "neighboors": [] 
+}
+
+{ 
+    "name": "SP", 
+    "population": 2523794, 
+    "foundationDate": "1897-12-12", 
+    "coordinate": { 
+        "lat": -23.55, 
+        "long": -46.64
+    }, 
+    "neighboors": [] 
+}
+{ 
+    "name": "TO", 
+    "population": 2523794, 
+    "foundationDate": "1897-12-12", 
+    "coordinate": { 
+        "lat": -10.25, 
+        "long": -48.25
+    }, 
+    "neighboors": [] 
+}
